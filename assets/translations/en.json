@@ -1,0 +1,44 @@
+{
+  "app": {"title": "Weshahi"},
+  "common": {
+    "ok": "OK",
+    "save": "Save",
+    "continue": "Continue",
+    "start": "Start",
+    "back_home": "Back to Home"
+  },
+  "nav": {"home": "Home", "design": "Design", "orders": "Orders", "profile": "Profile"},
+  "splash": {"brand": "Weshahi"},
+  "onboarding": {
+    "title1": "Luxury worthy of your achievement",
+    "desc1": "Exclusive graduation scarves with premium velvet.",
+    "title2": "Design your scarf",
+    "desc2": "Choose color, font and text. Preview before ordering.",
+    "title3": "Delivery across Syria",
+    "desc3": "Order now and pay on delivery.",
+    "next": "Next",
+    "start": "Start"
+  },
+  "user_info": {
+    "title": "Let’s get to know you",
+    "name": "Name",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "save_continue": "Save & Continue",
+    "error_required": "Please fill all fields"
+  },
+  "home": {"title": "Home"},
+  "profile": {"title": "Profile"},
+  "orders": {"title": "My Orders", "empty": "No orders yet"},
+  "order": {"title": "Confirm Order", "confirm": "Confirm Order"},
+  "success": {"title": "Order Sent Successfully!"},
+  "lang": {"arabic": "Arabic (Fusha)", "arabic_sy": "Arabic (Colloquial)", "english": "English"},
+  "language_select": {
+    "choose": "Choose Language",
+    "fusha": "Arabic (Fusha)",
+    "fusha_desc": "Formal, elegant Arabic UI.",
+    "syrian": "Arabic (Syrian Colloquial)",
+    "syrian_desc": "Playful, friendly copy with Syrian vibe."
+  }
+}
