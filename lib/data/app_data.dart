@@ -52,4 +52,3 @@ const List<ProductModel> products = [
     category: 'men',
   ),
 ];
-

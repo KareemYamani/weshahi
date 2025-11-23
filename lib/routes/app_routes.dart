@@ -1,6 +1,5 @@
 abstract class Routes {
   static const splash = '/';
-  static const language = '/language';
   static const onboarding = '/onboarding';
   static const userInfo = '/user-info';
   static const home = '/home';

@@ -109,4 +109,3 @@ class OrderModel {
     required this.status,
   });
 }
-

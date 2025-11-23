@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes/app_routes.dart';
-import '../services/prefs.dart';
 
 class OnboardingSlide {
   final String title;
@@ -48,8 +47,6 @@ class OnboardingController extends GetxController {
         curve: Curves.easeOut,
       );
     } else {
-      // Finish onboarding only once
-      Prefs.setOnboardingDone(true);
       Get.offAllNamed(Routes.userInfo);
     }
   }

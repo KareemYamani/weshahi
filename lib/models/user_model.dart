@@ -32,4 +32,3 @@ class UserModel {
     address: '',
   );
 }
-

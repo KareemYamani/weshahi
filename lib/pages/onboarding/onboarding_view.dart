@@ -1,81 +1,123 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../theme/app_theme.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../controllers/onboarding_controller.dart';
-import '../../routes/app_routes.dart';
+import '../../widgets/primary_button.dart';
 
-class OnboardingPage extends GetView<OnboardingController> {
-  const OnboardingPage({super.key});
+class OnboardingScreen extends GetView<OnboardingController> {
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: controller.pageController,
-                itemCount: controller.slides.length,
-                onPageChanged: controller.onPageChanged,
-                itemBuilder: (_, i) {
-                  final s = controller.slides[i];
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(s.icon, style: const TextStyle(fontSize: 64)),
-                      const SizedBox(height: 16),
-                      Text(
-                          i == 0
-                              ? tr('onboarding.title1')
-                              : i == 1
-                                  ? tr('onboarding.title2')
-                                  : tr('onboarding.title3'),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 18)),
-                      const SizedBox(height: 8),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                            i == 0
-                                ? tr('onboarding.desc1')
-                                : i == 1
-                                    ? tr('onboarding.desc2')
-                                    : tr('onboarding.desc3'),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+          child: Column(
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: controller.pageController,
+                  onPageChanged: controller.onPageChanged,
+                  itemCount: controller.slides.length,
+                  itemBuilder: (context, index) {
+                    final slide = controller.slides[index];
+                    return AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      child: Column(
+                        key: ValueKey(slide.title),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TweenAnimationBuilder<double>(
+                            tween: Tween(begin: 0.8, end: 1),
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.elasticOut,
+                            builder: (context, value, child) {
+                              return Transform.scale(
+                                scale: value,
+                                child: child,
+                              );
+                            },
+                            child: Text(
+                              slide.icon,
+                              style: const TextStyle(
+                                fontSize: 90,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black26,
+                                    blurRadius: 14,
+                                    offset: Offset(0, 6),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 28),
+                          Text(
+                            slide.title,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(color: AppColors.textSec)),
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.textMain,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          SizedBox(
+                            width: 260,
+                            child: Text(
+                              slide.desc,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                height: 1.6,
+                                color: AppColors.textSec,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Obx(() => Text(
-                        '${controller.currentIndex.value + 1}/${controller.slides.length}',
-                        style: const TextStyle(color: AppColors.textSec),
-                      )),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (controller.isLast) {
-                        Get.offAllNamed(Routes.userInfo);
-                      } else {
-                        controller.next();
-                      }
-                    },
-                    child: Obx(() => Text(
-                        controller.isLast ? tr('onboarding.start') : tr('onboarding.next'))),
+              const SizedBox(height: 20),
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    controller.slides.length,
+                    (i) => AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      height: 6,
+                      width: controller.currentIndex.value == i ? 22 : 7,
+                      decoration: BoxDecoration(
+                        color: controller.currentIndex.value == i
+                            ? AppColors.accent
+                            : const Color(0xFFE2E8F0),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 22),
+              Obx(
+                () => PrimaryButton(
+                  label: controller.isLast ? 'ابدأ الآن' : 'التالي',
+                  onPressed: controller.next,
+                  icon: Icon(
+                    controller.isLast
+                        ? Icons.check_rounded
+                        : Icons.arrow_back_ios_new_rounded,
+                    size: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

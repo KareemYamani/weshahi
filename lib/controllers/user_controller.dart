@@ -12,4 +12,3 @@ class UserController extends GetxController {
     user.value = updatedUser;
   }
 }
-

@@ -34,4 +34,3 @@ const List<FabricOption> fabricOptions = [
   FabricOption(id: 'velvet', name: 'مخمل', description: 'فخم، دافئ، غير لامع'),
   FabricOption(id: 'satin', name: 'ساتان', description: 'ناعم، لامع، انسيابي'),
 ];
-

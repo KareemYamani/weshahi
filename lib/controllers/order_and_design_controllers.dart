@@ -55,4 +55,3 @@ class OrderController extends GetxController {
     lastOrderId.value = id;
   }
 }
-

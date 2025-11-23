@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../theme/app_theme.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -33,7 +32,7 @@ class BottomNavBar extends StatelessWidget {
         children: [
           _NavItem(
             icon: Icons.home_filled,
-            label: tr('nav.home'),
+            label: 'الرئيسية',
             isActive: currentIndex == 0,
             onTap: () => onChanged(0),
           ),
@@ -65,7 +64,7 @@ class BottomNavBar extends StatelessWidget {
           ),
           _NavItem(
             icon: Icons.shopping_bag_outlined,
-            label: tr('nav.orders'),
+            label: 'طلباتي',
             isActive: currentIndex == 2,
             onTap: () => onChanged(2),
           ),

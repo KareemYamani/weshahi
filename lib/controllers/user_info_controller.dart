@@ -4,7 +4,6 @@ import '../data/app_data.dart';
 import '../models/user_model.dart';
 import 'user_controller.dart';
 import '../routes/app_routes.dart';
-import '../services/prefs.dart';
 
 class UserInfoController extends GetxController {
   late final TextEditingController nameController;
@@ -19,6 +18,7 @@ class UserInfoController extends GetxController {
   void onInit() {
     super.onInit();
     final user = Get.find<UserController>().user.value;
+
     nameController = TextEditingController(text: user.name);
     phoneController = TextEditingController(text: user.phone);
     addressController = TextEditingController(text: user.address);
@@ -26,22 +26,29 @@ class UserInfoController extends GetxController {
   }
 
   void submit() {
-    if (nameController.text.trim().isEmpty ||
-        phoneController.text.trim().isEmpty ||
-        addressController.text.trim().isEmpty) {
-      error.value = 'يرجى تعبئة جميع الحقول';
+    final name = nameController.text.trim();
+    final phone = phoneController.text.trim();
+    final address = addressController.text.trim();
+
+    if (name.isEmpty || phone.isEmpty || address.isEmpty) {
+      error.value = 'يرجى تعبئة جميع الحقول المطلوبة';
       return;
     }
 
+    if (!RegExp(r'^09\d{8}$').hasMatch(phone)) {
+      error.value = 'رقم الجوال يجب أن يبدأ بـ 09 ويتكون من 10 أرقام';
+      return;
+    }
+
+    error.value = '';
     final user = UserModel(
-      name: nameController.text.trim(),
-      phone: phoneController.text.trim(),
+      name: name,
+      phone: phone,
       city: selectedCity.value,
-      address: addressController.text.trim(),
+      address: address,
     );
+
     Get.find<UserController>().setUser(user);
-    // Persist user locally
-    Prefs.saveUser(user);
     Get.offAllNamed(Routes.home);
   }
 

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../data/app_data.dart';
 import '../models/user_model.dart';
 import 'user_controller.dart';
-import '../services/prefs.dart';
 
 class ProfileController extends GetxController {
   late final TextEditingController nameController;
@@ -38,7 +37,6 @@ class ProfileController extends GetxController {
     );
 
     Get.find<UserController>().updateUser(updatedUser);
-    Prefs.saveUser(updatedUser);
     isSaved.value = true;
 
     Future.delayed(const Duration(seconds: 2), () {

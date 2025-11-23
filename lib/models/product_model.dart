@@ -17,4 +17,3 @@ class ProductModel {
     required this.category,
   });
 }
-
