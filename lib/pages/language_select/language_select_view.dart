@@ -56,7 +56,7 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
                   _LangTile(
                     title: localManager.tr('language_select.syrian'),
                     subtitle: localManager.tr('language_select.syrian_desc'),
-                    onTap: () => _select(const Locale('sa')),
+                    onTap: () => _select(const Locale('ar', 'SA')),
                     leading: const Text('ش', style: TextStyle(fontSize: 20)),
                   ),
                   const SizedBox(height: 12),

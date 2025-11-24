@@ -17,7 +17,7 @@ class LanguageSwitcher extends StatelessWidget {
           child: Text(localManager.tr('lang.arabic')),
         ),
         PopupMenuItem(
-          value: const Locale('sa'),
+          value: const Locale('ar', 'SA'),
           child: Text(localManager.tr('lang.arabic_sy')),
         ),
         PopupMenuItem(

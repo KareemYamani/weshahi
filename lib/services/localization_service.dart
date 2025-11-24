@@ -11,13 +11,15 @@ class LocalizationService {
   LocalizationService([this._prefs]);
 
   // Keep locales consistent with assets/translations/*
+  // ar      -> Arabic (Fusha)
+  // ar-SA   -> Arabic (Colloquial / Syrian style)
   static const List<Locale> supportedLocales = [
     Locale('ar'),
-    Locale('sa'),
+    Locale('ar', 'SA'),
     Locale('en'),
   ];
 
-  static const Locale fallbackLocale = Locale('sa');
+  static const Locale fallbackLocale = Locale('ar');
 
   static Locale get system => ui.PlatformDispatcher.instance.locale;
 

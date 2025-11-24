@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'localization/local_manager.dart';
+import 'localization/weshahi_asset_loader.dart';
 
 import 'bindings/app_binding.dart';
 import 'routes/app_pages.dart';
@@ -19,7 +20,8 @@ Future<void> main() async {
     EasyLocalization(
       supportedLocales: LocalizationService.supportedLocales,
       path: 'assets/translations',
-      startLocale: const Locale('sa'),
+      assetLoader: const WeshahiAssetLoader(),
+      startLocale: const Locale('ar', 'SA'),
       useOnlyLangCode: false,
       fallbackLocale: LocalizationService.fallbackLocale,
       saveLocale: true,

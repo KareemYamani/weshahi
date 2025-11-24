@@ -47,6 +47,16 @@ class LocalManager {
   Future<void> setLocale(Locale locale) async {
     final ctx = _ctx;
     if (ctx != null) {
+      // final code = locale.countryCode?.isNotEmpty == true
+      //     ? '${locale.languageCode}-${locale.countryCode}'
+      //     : locale.languageCode;
+      // final fileName = 'assets/translations/$code.json';
+      // // ستشاهد هذه الرسالة في الـ console عند تغيير اللغة
+      // // مثال: [Localization] locale=ar-SA file=assets/translations/ar-SA.json
+      // // ignore: avoid_print
+      // print('[Localization] locale=$code file=$fileName');
+      print('Kareem $locale');
+
       await ctx.setLocale(locale);
     }
   }
