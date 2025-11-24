@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'localization/local_manager.dart';
 
 import 'bindings/app_binding.dart';
 import 'routes/app_pages.dart';
 import 'routes/app_routes.dart';
+import 'services/localization_service.dart';
 import 'theme/app_theme.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const WeshahiApp());
+  await EasyLocalization.ensureInitialized();
+  // Allow LocalManager to resolve a context using GetX's navigator key.
+  localManager.navigatorKey = Get.key;
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: LocalizationService.supportedLocales,
+      path: 'assets/translations',
+      startLocale: const Locale('sa'),
+      useOnlyLangCode: false,
+      fallbackLocale: LocalizationService.fallbackLocale,
+      saveLocale: true,
+      child: const WeshahiApp(),
+    ),
+  );
 }
 
 class WeshahiApp extends StatelessWidget {
@@ -17,19 +34,15 @@ class WeshahiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'وشاحي',
+      title: localManager.tr('app.title'),
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       initialBinding: AppBinding(),
-      initialRoute: Routes.splash,
+      initialRoute: Routes.language,
       getPages: AppPages.pages,
-      locale: const Locale('ar'),
-      builder: (context, child) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: child ?? const SizedBox(),
-        );
-      },
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }

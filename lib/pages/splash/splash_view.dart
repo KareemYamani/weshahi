@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import '../../theme/app_theme.dart';
 import '../../controllers/splash_controller.dart';
 
@@ -64,9 +65,9 @@ class SplashScreen extends GetView<SplashController> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'وشاحي',
-                  style: TextStyle(
+                Text(
+                  localManager.tr('splash.brand'),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 28,
                     fontWeight: FontWeight.w800,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../localization/local_manager.dart';
 import '../models/product_model.dart';
 import '../theme/app_theme.dart';
 
@@ -109,9 +110,12 @@ class ProductCard extends StatelessWidget {
                         fontSize: 11,
                       ),
                     ),
-                    const Text(
-                      'ل.س',
-                      style: TextStyle(color: AppColors.textSec, fontSize: 9),
+                    Text(
+                      localManager.tr('common.currency'),
+                      style: const TextStyle(
+                        color: AppColors.textSec,
+                        fontSize: 9,
+                      ),
                     ),
                     const Spacer(),
                     Container(

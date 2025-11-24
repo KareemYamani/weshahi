@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../controllers/order_and_design_controllers.dart';
 import '../../data/design_options.dart';
@@ -81,8 +82,8 @@ class _ScarfDesignScreenState extends State<ScarfDesignScreen> {
       });
     } catch (e) {
       Get.snackbar(
-        'خطأ في اختيار الصورة',
-        'تعذر تحميل الشعار، يرجى المحاولة لاحقاً.',
+        localManager.tr('design.error.pick_image_title'),
+        localManager.tr('design.error.pick_image_desc'),
         snackPosition: SnackPosition.BOTTOM,
         margin: const EdgeInsets.all(16),
       );
@@ -141,7 +142,7 @@ class _ScarfDesignScreenState extends State<ScarfDesignScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            DesignAppBar(title: 'استوديو التصميم', onBack: Get.back),
+            DesignAppBar(title: localManager.tr('design.scarf.title'), onBack: Get.back),
             Expanded(
               child: Column(
                 children: [
@@ -197,7 +198,9 @@ class _ScarfDesignScreenState extends State<ScarfDesignScreen> {
                           Padding(
                             padding: const EdgeInsets.all(16),
                             child: PrimaryButton(
-                              label: step < 3 ? 'التالي' : 'إتمام الطلب',
+                              label: step < 3
+                                  ? localManager.tr('common.next')
+                                  : localManager.tr('order.title'),
                               onPressed: _goNext,
                             ),
                           ),
@@ -646,7 +649,7 @@ class _ScarfSide extends StatefulWidget {
   final Uint8List? logoBytes;
 
   const _ScarfSide({
-    Key? key,
+    super.key,
     required this.color,
     required this.isSatin,
     required this.text,
@@ -654,7 +657,7 @@ class _ScarfSide extends StatefulWidget {
     required this.fontSize,
     required this.rotateRight,
     this.logoBytes,
-  }) : super(key: key);
+  });
 
   @override
   State<_ScarfSide> createState() => _ScarfSideState();

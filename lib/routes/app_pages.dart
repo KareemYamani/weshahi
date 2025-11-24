@@ -7,6 +7,7 @@ import '../controllers/splash_controller.dart';
 import '../controllers/user_info_controller.dart';
 import '../routes/app_routes.dart';
 import '../pages/splash/splash_view.dart';
+import '../pages/language_select/language_select_view.dart';
 import '../pages/onboarding/onboarding_view.dart';
 import '../pages/user_info/user_info_view.dart';
 import '../pages/home/home_view.dart';
@@ -19,6 +20,12 @@ import '../pages/design_cap/design_cap_view.dart';
 
 class AppPages {
   static final pages = <GetPage>[
+    GetPage(
+      name: Routes.language,
+      page: () => const LanguageSelectScreen(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
     GetPage(
       name: Routes.splash,
       page: () => const SplashScreen(),

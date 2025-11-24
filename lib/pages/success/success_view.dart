@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import '../../controllers/order_and_design_controllers.dart';
 import '../../routes/app_routes.dart';
 import '../../theme/app_theme.dart';
@@ -35,10 +36,10 @@ class SuccessScreen extends GetView<OrderController> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                const Text(
-                  'تم استلام طلبك بنجاح!',
+                Text(
+                  localManager.tr('success.title'),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textMain,
@@ -46,7 +47,7 @@ class SuccessScreen extends GetView<OrderController> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'شكراً لثقتك بنا. سيتم تجهيز طلبك وشحنه قريباً.',
+                  localManager.tr('success.subtitle'),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 12,
@@ -56,7 +57,7 @@ class SuccessScreen extends GetView<OrderController> {
                 const SizedBox(height: 8),
                 if (id != null)
                   Text(
-                    'رقم الطلب: #$id',
+                    '${localManager.tr('success.order_no_label')}: #$id',
                     style: const TextStyle(
                       fontSize: 11,
                       color: AppColors.textSec,
@@ -72,10 +73,10 @@ class SuccessScreen extends GetView<OrderController> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: const [
+                    children: [
                       Text(
-                        'ماذا سيحدث الآن؟',
-                        style: TextStyle(
+                        localManager.tr('success.next_steps_title'),
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w800,
                           color: AppColors.textMain,
@@ -83,11 +84,9 @@ class SuccessScreen extends GetView<OrderController> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        '• سيقوم فريقنا بمراجعة التصميم.\n'
-                        '• قد نتواصل معك لتأكيد بعض التفاصيل.\n'
-                        '• مدة التنفيذ المتوقعة: 3-5 أيام عمل.',
+                        localManager.tr('success.next_steps_bullets'),
                         textAlign: TextAlign.right,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 11,
                           color: AppColors.textSec,
                         ),
@@ -97,7 +96,7 @@ class SuccessScreen extends GetView<OrderController> {
                 ),
                 const SizedBox(height: 24),
                 PrimaryButton(
-                  label: 'تتبع طلبي',
+                  label: localManager.tr('success.track_order'),
                   onPressed: () {
                     Get.offAllNamed(Routes.orders);
                   },
@@ -114,9 +113,9 @@ class SuccessScreen extends GetView<OrderController> {
                   onPressed: () {
                     Get.offAllNamed(Routes.home);
                   },
-                  child: const Text(
-                    'العودة للرئيسية',
-                    style: TextStyle(
+                  child: Text(
+                    localManager.tr('common.back_home'),
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: AppColors.primary,
                     ),

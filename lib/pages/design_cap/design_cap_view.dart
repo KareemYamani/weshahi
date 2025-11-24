@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import '../../controllers/order_and_design_controllers.dart';
 import '../../data/design_options.dart';
 import '../../models/design_and_order_models.dart';
@@ -92,7 +93,7 @@ class _CapDesignScreenState extends State<CapDesignScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            DesignAppBar(title: 'تصميم القبعة', onBack: Get.back),
+            DesignAppBar(title: localManager.tr('design.cap.title'), onBack: Get.back),
             Expanded(
               child: Column(
                 children: [
@@ -139,7 +140,9 @@ class _CapDesignScreenState extends State<CapDesignScreen> {
                           Padding(
                             padding: const EdgeInsets.all(16),
                             child: PrimaryButton(
-                              label: step < 2 ? 'التالي' : 'إتمام الطلب',
+                              label: step < 2
+                                  ? localManager.tr('common.next')
+                                  : localManager.tr('order.title'),
                               onPressed: _goNext,
                             ),
                           ),
@@ -382,7 +385,7 @@ class _CapDesignScreenState extends State<CapDesignScreen> {
                     ),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<String>(
-                      value: fontId,
+                      initialValue: fontId,
                       items: fontOptions
                           .map(
                             (f) => DropdownMenuItem(
@@ -574,14 +577,14 @@ class _CapPreview extends StatefulWidget {
   final double textRotation;
 
   const _CapPreview({
-    Key? key,
+    super.key,
     required this.baseColor,
     required this.tasselColor,
     required this.fabricId,
     required this.text,
     required this.textColor,
     this.textRotation = 0,
-  }) : super(key: key);
+  });
 
   bool get isSatin => fabricId == 'satin';
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:ui' as ui;
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import '../../theme/app_theme.dart';
 import '../../controllers/profile_controller.dart';
 
@@ -76,9 +78,9 @@ class _ProfileAppBar extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
           ),
           const Spacer(),
-          const Text(
-            'الملف الشخصي',
-            style: TextStyle(
+          Text(
+            localManager.tr('profile.title'),
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w800,
               color: AppColors.textMain,
@@ -145,9 +147,9 @@ class _AvatarSection extends GetView<ProfileController> {
           ],
         ),
         const SizedBox(height: 6),
-        const Text(
-          'تعديل الصورة الشخصية',
-          style: TextStyle(fontSize: 12, color: AppColors.textSec),
+        Text(
+          localManager.tr('profile.edit_avatar'),
+          style: const TextStyle(fontSize: 12, color: AppColors.textSec),
         ),
       ],
     );
@@ -175,16 +177,19 @@ class _FormSection extends GetView<ProfileController> {
         children: [
           _LabelWithIcon(
             icon: Icons.person_outline_rounded,
-            label: 'الاسم الكامل',
+            label: localManager.tr('profile.full_name_label'),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: controller.nameController,
             textAlign: TextAlign.right,
-            decoration: const InputDecoration(hintText: 'الاسم الثلاثي'),
+            decoration: InputDecoration(hintText: localManager.tr('profile.full_name_hint')),
           ),
           const SizedBox(height: 16),
-          _LabelWithIcon(icon: Icons.phone_iphone_rounded, label: 'رقم الجوال'),
+          _LabelWithIcon(
+            icon: Icons.phone_iphone_rounded,
+            label: localManager.tr('user_info.phone_label'),
+          ),
           const SizedBox(height: 6),
           Container(
             decoration: BoxDecoration(
@@ -193,7 +198,7 @@ class _FormSection extends GetView<ProfileController> {
               border: Border.all(color: const Color(0xFFE2E8F0)),
             ),
             child: Row(
-              textDirection: TextDirection.ltr,
+              textDirection: ui.TextDirection.ltr,
               children: [
                 Container(
                   width: 70,
@@ -253,7 +258,7 @@ class _FormSection extends GetView<ProfileController> {
               () => DropdownButtonFormField<String>(
                 isDense: true,
                 isExpanded: true,
-                value: controller.selectedCity.value,
+                initialValue: controller.selectedCity.value,
                 items: controller.cities
                     .map(
                       (c) => DropdownMenuItem(
@@ -272,8 +277,8 @@ class _FormSection extends GetView<ProfileController> {
                   size: 20,
                   color: AppColors.textSec,
                 ),
-                decoration: const InputDecoration(
-                  labelText: 'المحافظة',
+                decoration: InputDecoration(
+                  labelText: localManager.tr('user_info.city_label'),
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 14,
@@ -286,9 +291,9 @@ class _FormSection extends GetView<ProfileController> {
           TextField(
             controller: controller.addressController,
             textAlign: TextAlign.right,
-            decoration: const InputDecoration(
-              labelText: 'العنوان',
-              hintText: 'الحي، الشارع، تفاصيل إضافية...',
+            decoration: InputDecoration(
+              labelText: localManager.tr('user_info.address_label'),
+              hintText: localManager.tr('user_info.address_hint'),
             ),
           ),
         ],
@@ -362,7 +367,9 @@ class _BottomSaveButton extends GetView<ProfileController> {
               ),
               const SizedBox(width: 8),
               Text(
-                saved ? 'تم الحفظ بنجاح' : 'حفظ التغييرات',
+                saved
+                    ? localManager.tr('profile.saved_success')
+                    : localManager.tr('profile.save_changes'),
                 style: const TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 14,

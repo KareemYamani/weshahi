@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import '../../theme/app_theme.dart';
 import '../../controllers/user_info_controller.dart';
 import '../../widgets/primary_button.dart';
@@ -57,21 +58,21 @@ class UserInfoScreen extends GetView<UserInfoController> {
                               ),
                             ),
                             const SizedBox(height: 14),
-                            const Text(
-                              'لنتعرّف عليك',
-                              style: TextStyle(
+                            Text(
+                              localManager.tr('user_info.title'),
+                              style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.textMain,
                               ),
                             ),
                             const SizedBox(height: 6),
-                            const SizedBox(
+                            SizedBox(
                               width: 280,
                               child: Text(
-                                'يرجى إدخال بياناتك لتسهيل عملية التوصيل داخل سوريا.',
+                                localManager.tr('user_info.subtitle'),
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   color: AppColors.textSec,
                                 ),
@@ -83,16 +84,20 @@ class UserInfoScreen extends GetView<UserInfoController> {
                         TextField(
                           controller: controller.nameController,
                           textAlign: TextAlign.right,
-                          decoration: const InputDecoration(
-                            labelText: 'الاسم الكامل',
-                            hintText: 'الاسم الثلاثي',
+                          decoration: InputDecoration(
+                            labelText: localManager.tr(
+                              'user_info.full_name_label',
+                            ),
+                            hintText: localManager.tr(
+                              'user_info.full_name_hint',
+                            ),
                           ),
                         ),
                         const SizedBox(height: 14),
                         Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            'رقم الجوال',
+                            localManager.tr('user_info.phone_label'),
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey.shade700,
@@ -161,7 +166,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
                         Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            'المحافظة والعنوان',
+                            localManager.tr('user_info.address'),
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey.shade700,
@@ -180,7 +185,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
                                   () => DropdownButtonFormField<String>(
                                     isDense: true,
                                     isExpanded: true,
-                                    value: controller.selectedCity.value,
+                                    initialValue: controller.selectedCity.value,
                                     items: controller.cities
                                         .map(
                                           (c) => DropdownMenuItem(
@@ -202,12 +207,15 @@ class UserInfoScreen extends GetView<UserInfoController> {
                                       size: 20,
                                       color: AppColors.textSec,
                                     ),
-                                    decoration: const InputDecoration(
-                                      labelText: 'المحافظة',
-                                      contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 14,
+                                    decoration: InputDecoration(
+                                      labelText: localManager.tr(
+                                        'user_info.city_label',
                                       ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 14,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -219,9 +227,13 @@ class UserInfoScreen extends GetView<UserInfoController> {
                               child: TextField(
                                 controller: controller.addressController,
                                 textAlign: TextAlign.right,
-                                decoration: const InputDecoration(
-                                  labelText: 'العنوان',
-                                  hintText: 'المنطقة، الشارع...',
+                                decoration: InputDecoration(
+                                  labelText: localManager.tr(
+                                    'user_info.address_label',
+                                  ),
+                                  hintText: localManager.tr(
+                                    'user_info.address_hint',
+                                  ),
                                 ),
                               ),
                             ),
@@ -263,7 +275,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
                         ),
                         const SizedBox(height: 40),
                         PrimaryButton(
-                          label: 'حفظ ومتابعة',
+                          label: localManager.tr('user_info.save_continue'),
                           onPressed: controller.submit,
                           icon: const Icon(
                             Icons.chevron_left_rounded,

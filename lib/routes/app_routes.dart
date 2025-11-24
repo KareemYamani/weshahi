@@ -1,4 +1,5 @@
 abstract class Routes {
+  static const language = '/language';
   static const splash = '/';
   static const onboarding = '/onboarding';
   static const userInfo = '/user-info';

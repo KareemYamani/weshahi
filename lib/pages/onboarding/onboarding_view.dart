@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import '../../theme/app_theme.dart';
 import '../../controllers/onboarding_controller.dart';
 import '../../widgets/primary_button.dart';
@@ -55,7 +56,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           ),
                           const SizedBox(height: 28),
                           Text(
-                            slide.title,
+                            localManager.tr(slide.title),
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 22,
@@ -67,7 +68,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           SizedBox(
                             width: 260,
                             child: Text(
-                              slide.desc,
+                              localManager.tr(slide.desc),
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 13,
@@ -106,7 +107,9 @@ class OnboardingScreen extends GetView<OnboardingController> {
               const SizedBox(height: 22),
               Obx(
                 () => PrimaryButton(
-                  label: controller.isLast ? 'ابدأ الآن' : 'التالي',
+                  label: controller.isLast
+                      ? localManager.tr('onboarding.start')
+                      : localManager.tr('onboarding.next'),
                   onPressed: controller.next,
                   icon: Icon(
                     controller.isLast

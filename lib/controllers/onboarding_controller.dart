@@ -20,18 +20,18 @@ class OnboardingController extends GetxController {
 
   final slides = <OnboardingSlide>[
     OnboardingSlide(
-      title: 'فخامة تليق بإنجازك',
-      desc: 'تشكيلة حصرية من أوشحة التخرج المصممة بأجود أنواع المخمل.',
+      title: 'onboarding.title1',
+      desc: 'onboarding.desc1',
       icon: '🎓',
     ),
     OnboardingSlide(
-      title: 'صمم وشاحك بنفسك',
-      desc: 'اختر اللون، الخط، والنص. وشاهد النتيجة مباشرة قبل الطلب.',
+      title: 'onboarding.title2',
+      desc: 'onboarding.desc2',
       icon: '✨',
     ),
     OnboardingSlide(
-      title: 'توصيل لجميع المحافظات',
-      desc: 'اطلب الآن وادفع عند الاستلام في سوريا.',
+      title: 'onboarding.title3',
+      desc: 'onboarding.desc3',
       icon: '🚀',
     ),
   ].obs;

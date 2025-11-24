@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+import '../localization/local_manager.dart';
 
 class LanguageSwitcher extends StatelessWidget {
   const LanguageSwitcher({super.key});
@@ -9,23 +9,22 @@ class LanguageSwitcher extends StatelessWidget {
     return PopupMenuButton<Locale>(
       icon: const Icon(Icons.language),
       onSelected: (loc) async {
-        await context.setLocale(loc);
+        await localManager.setLocale(loc);
       },
       itemBuilder: (ctx) => [
         PopupMenuItem(
           value: const Locale('ar'),
-          child: Text(tr('lang.arabic')),
+          child: Text(localManager.tr('lang.arabic')),
         ),
         PopupMenuItem(
-          value: const Locale('ar', 'SY'),
-          child: Text(tr('lang.arabic_sy')),
+          value: const Locale('sa'),
+          child: Text(localManager.tr('lang.arabic_sy')),
         ),
         PopupMenuItem(
           value: const Locale('en'),
-          child: Text(tr('lang.english')),
+          child: Text(localManager.tr('lang.english')),
         ),
       ],
     );
   }
 }
-

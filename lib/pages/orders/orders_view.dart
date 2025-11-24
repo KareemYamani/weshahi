@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import '../../controllers/order_and_design_controllers.dart';
 import '../../data/design_options.dart';
 import '../../models/design_and_order_models.dart';
@@ -17,14 +18,14 @@ class OrdersScreen extends GetView<OrderController> {
       body: SafeArea(
         child: Column(
           children: [
-            DesignAppBar(title: 'طلباتي', onBack: () => Get.back()),
+            DesignAppBar(title: localManager.tr('orders.title'), onBack: () => Get.back()),
             Expanded(
               child: Obx(() {
                 if (controller.orders.isEmpty) {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.inventory_2_outlined,
                           size: 72,
@@ -32,8 +33,8 @@ class OrdersScreen extends GetView<OrderController> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'لا توجد طلبات بعد',
-                          style: TextStyle(
+                          localManager.tr('orders.empty'),
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: AppColors.textMain,
@@ -41,8 +42,8 @@ class OrdersScreen extends GetView<OrderController> {
                         ),
                         SizedBox(height: 6),
                         Text(
-                          'ابدأ بتصميم وشاحك الخاص الآن!',
-                          style: TextStyle(
+                          localManager.tr('orders.start_design'),
+                          style: const TextStyle(
                             fontSize: 11,
                             color: AppColors.textSec,
                           ),
@@ -113,7 +114,9 @@ class OrdersScreen extends GetView<OrderController> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      isScarf ? 'وشاح تخرج' : 'قبعة تخرج',
+                                      isScarf
+                                          ? localManager.tr('order.item.scarf')
+                                          : localManager.tr('order.item.cap'),
                                       style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w800,
@@ -156,7 +159,7 @@ class OrdersScreen extends GetView<OrderController> {
                           Row(
                             children: [
                               Text(
-                                '$price ل.س',
+                                '$price ${localManager.tr('common.currency')}',
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w800,

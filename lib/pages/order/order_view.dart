@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../localization/local_manager.dart';
 import 'package:weshahi/models/design_and_order_models.dart';
 import '../../controllers/order_and_design_controllers.dart';
 import '../../controllers/user_controller.dart';
@@ -52,8 +53,8 @@ class _OrderScreenState extends State<OrderScreen> {
         phoneController.text.trim().isEmpty ||
         addressController.text.trim().isEmpty) {
       Get.snackbar(
-        'تنبيه',
-        'يرجى تعبئة جميع الحقول',
+        localManager.tr('common.alert'),
+        localManager.tr('common.fill_required'),
         snackPosition: SnackPosition.BOTTOM,
       );
       return;
@@ -105,7 +106,7 @@ class _OrderScreenState extends State<OrderScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            DesignAppBar(title: 'إتمام الطلب', onBack: () => Get.back()),
+            DesignAppBar(title: localManager.tr('order.title'), onBack: () => Get.back()),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
@@ -145,7 +146,9 @@ class _OrderScreenState extends State<OrderScreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  isScarf ? 'وشاح تخرج' : 'قبعة تخرج',
+                                  isScarf
+                                      ? localManager.tr('order.item.scarf')
+                                      : localManager.tr('order.item.cap'),
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w800,
@@ -155,8 +158,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                 const SizedBox(height: 4),
                                 Text(
                                   isScarf
-                                      ? 'اللون: ${scarfColor.name}'
-                                      : 'لون القبعة: ${scarfColor.name}',
+                                      ? '${localManager.tr('order.summary.color')}: ${scarfColor.name}'
+                                      : '${localManager.tr('order.summary.cap_color')}: ${scarfColor.name}',
                                   style: const TextStyle(
                                     fontSize: 11,
                                     color: AppColors.textSec,
@@ -165,8 +168,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                 const SizedBox(height: 4),
                                 Text(
                                   isScarf
-                                      ? 'النص: ${scarf.rightText} / ${scarf.leftText}'
-                                      : 'النص: ${cap.topText}',
+                                      ? '${localManager.tr('order.summary.text')}: ${scarf.rightText} / ${scarf.leftText}'
+                                      : '${localManager.tr('order.summary.text')}: ${cap.topText}',
                                   style: const TextStyle(
                                     fontSize: 11,
                                     color: AppColors.textSec,
@@ -177,7 +180,9 @@ class _OrderScreenState extends State<OrderScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            isScarf ? '150,000 ل.س' : '75,000 ل.س',
+                            isScarf
+                                ? '150,000 ${localManager.tr('common.currency')}'
+                                : '75,000 ${localManager.tr('common.currency')}',
                             style: const TextStyle(
                               color: AppColors.accentDark,
                               fontSize: 13,
@@ -192,7 +197,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       alignment: Alignment.centerRight,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.person_outline_rounded,
                             size: 18,
@@ -200,8 +205,8 @@ class _OrderScreenState extends State<OrderScreen> {
                           ),
                           SizedBox(width: 6),
                           Text(
-                            'بيانات المستلم',
-                            style: TextStyle(
+                            localManager.tr('order.recipient_info'),
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
                               color: AppColors.textMain,
@@ -223,8 +228,8 @@ class _OrderScreenState extends State<OrderScreen> {
                           TextField(
                             controller: nameController,
                             textAlign: TextAlign.right,
-                            decoration: const InputDecoration(
-                              labelText: 'الاسم الكامل',
+                            decoration: InputDecoration(
+                              labelText: localManager.tr('user_info.full_name_label'),
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -256,8 +261,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                   controller: phoneController,
                                   keyboardType: TextInputType.phone,
                                   textAlign: TextAlign.left,
-                                  decoration: const InputDecoration(
-                                    labelText: 'رقم الجوال',
+                                  decoration: InputDecoration(
+                                    labelText: localManager.tr('user_info.phone_label'),
                                   ),
                                 ),
                               ),
@@ -265,7 +270,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           ),
                           const SizedBox(height: 12),
                           DropdownButtonFormField<String>(
-                            value: city,
+                            initialValue: city,
                             items: syriaCities
                                 .map(
                                   (c) => DropdownMenuItem(
@@ -279,17 +284,17 @@ class _OrderScreenState extends State<OrderScreen> {
                                 setState(() => city = value);
                               }
                             },
-                            decoration: const InputDecoration(
-                              labelText: 'المحافظة',
+                            decoration: InputDecoration(
+                              labelText: localManager.tr('user_info.city_label'),
                             ),
                           ),
                           const SizedBox(height: 12),
                           TextField(
                             controller: addressController,
                             textAlign: TextAlign.right,
-                            decoration: const InputDecoration(
-                              labelText: 'العنوان',
-                              hintText: 'المنطقة، الشارع...',
+                            decoration: InputDecoration(
+                              labelText: localManager.tr('user_info.address_label'),
+                              hintText: localManager.tr('user_info.address_hint'),
                             ),
                           ),
                         ],
@@ -300,7 +305,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       alignment: Alignment.centerRight,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.credit_card_outlined,
                             size: 18,
@@ -308,8 +313,8 @@ class _OrderScreenState extends State<OrderScreen> {
                           ),
                           SizedBox(width: 6),
                           Text(
-                            'طريقة الدفع',
-                            style: TextStyle(
+                            localManager.tr('order.payment_method'),
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
                               color: AppColors.textMain,
@@ -327,7 +332,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         border: Border.all(color: const Color(0xFFFACC15)),
                       ),
                       child: Row(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.check_circle_outline_rounded,
                             color: AppColors.accentDark,
@@ -338,8 +343,8 @@ class _OrderScreenState extends State<OrderScreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  'الدفع عند الاستلام',
-                                  style: TextStyle(
+                                  localManager.tr('order.cash_on_delivery'),
+                                  style: const TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w800,
                                     color: AppColors.textMain,
@@ -347,8 +352,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                 ),
                                 SizedBox(height: 4),
                                 Text(
-                                  'ادفع نقداً عند استلام طلبك',
-                                  style: TextStyle(
+                                  localManager.tr('order.cod_desc'),
+                                  style: const TextStyle(
                                     fontSize: 11,
                                     color: AppColors.textSec,
                                   ),
@@ -380,7 +385,9 @@ class _OrderScreenState extends State<OrderScreen> {
                   Row(
                     children: [
                       Text(
-                        isScarf ? '150,000 ل.س' : '75,000 ل.س',
+                        isScarf
+                            ? '150,000 ${localManager.tr('common.currency')}'
+                            : '75,000 ${localManager.tr('common.currency')}',
                         style: const TextStyle(
                           color: AppColors.textMain,
                           fontSize: 18,
@@ -388,9 +395,9 @@ class _OrderScreenState extends State<OrderScreen> {
                         ),
                       ),
                       const Spacer(),
-                      const Text(
-                        'الإجمالي',
-                        style: TextStyle(
+                      Text(
+                        localManager.tr('order.total'),
+                        style: const TextStyle(
                           fontSize: 13,
                           color: AppColors.textSec,
                         ),
@@ -398,7 +405,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  PrimaryButton(label: 'تأكيد الطلب', onPressed: _submit),
+                  PrimaryButton(label: localManager.tr('order.confirm'), onPressed: _submit),
                 ],
               ),
             ),

@@ -5,7 +5,11 @@
     "save": "Save",
     "continue": "Continue",
     "start": "Start",
-    "back_home": "Back to Home"
+    "next": "Next",
+    "back_home": "Back to Home",
+    "currency": "SYP",
+    "alert": "Alert",
+    "fill_required": "Please fill all fields"
   },
   "nav": {"home": "Home", "design": "Design", "orders": "Orders", "profile": "Profile"},
   "splash": {"brand": "Weshahi"},
@@ -19,26 +23,69 @@
     "next": "Next",
     "start": "Start"
   },
-  "user_info": {
-    "title": "Let’s get to know you",
-    "name": "Name",
-    "phone": "Phone",
-    "address": "Address",
-    "city": "City",
-    "save_continue": "Save & Continue",
-    "error_required": "Please fill all fields"
-  },
-  "home": {"title": "Home"},
-  "profile": {"title": "Profile"},
-  "orders": {"title": "My Orders", "empty": "No orders yet"},
-  "order": {"title": "Confirm Order", "confirm": "Confirm Order"},
-  "success": {"title": "Order Sent Successfully!"},
-  "lang": {"arabic": "Arabic (Fusha)", "arabic_sy": "Arabic (Colloquial)", "english": "English"},
   "language_select": {
     "choose": "Choose Language",
     "fusha": "Arabic (Fusha)",
     "fusha_desc": "Formal, elegant Arabic UI.",
     "syrian": "Arabic (Syrian Colloquial)",
-    "syrian_desc": "Playful, friendly copy with Syrian vibe."
+    "syrian_desc": "Playful, friendly copy with Syrian vibe.",
+    "english_desc": "English UI and copy"
+  },
+  "user_info": {
+    "title": "Let’s get to know you",
+    "subtitle": "Please enter your details to facilitate delivery in Syria.",
+    "full_name_label": "Full Name",
+    "full_name_hint": "First, Middle, Last",
+    "phone_label": "Phone Number",
+    "city_label": "City",
+    "address_label": "Address",
+    "address_hint": "Area, street...",
+    "save_continue": "Save & Continue",
+    "error_required": "Please fill all fields",
+    "error_phone_format": "Phone must start with 09 and be 10 digits"
+  },
+  "home": {"title": "Home"},
+  "profile": {
+    "title": "Profile",
+    "edit_avatar": "Change profile photo",
+    "full_name_label": "Full Name",
+    "full_name_hint": "First, Middle, Last",
+    "saved_title": "Saved",
+    "saved_message": "Your profile has been updated successfully",
+    "saved_success": "Saved successfully",
+    "save_changes": "Save changes"
+  },
+  "orders": {
+    "title": "My Orders",
+    "empty": "No orders yet",
+    "start_design": "Start designing your scarf now!"
+  },
+  "order": {
+    "title": "Confirm Order",
+    "confirm": "Confirm Order",
+    "recipient_info": "Recipient Details",
+    "payment_method": "Payment Method",
+    "cash_on_delivery": "Cash on Delivery",
+    "cod_desc": "Pay cash upon delivery",
+    "total": "Total",
+    "item": {"scarf": "Graduation Scarf", "cap": "Graduation Cap"},
+    "summary": {"color": "Color", "cap_color": "Cap Color", "text": "Text"}
+  },
+  "success": {
+    "title": "Order Sent Successfully!",
+    "subtitle": "Thank you! Your order will be prepared and shipped soon.",
+    "order_no_label": "Order No",
+    "next_steps_title": "What happens next?",
+    "next_steps_bullets": "• Our team will review your design.\n• We may contact you to confirm details.\n• Estimated time: 3–5 business days.",
+    "track_order": "Track My Order"
+  },
+  "lang": {"arabic": "Arabic (Fusha)", "arabic_sy": "Arabic (Colloquial)", "english": "English"},
+  "design": {
+    "error": {
+      "pick_image_title": "Image selection error",
+      "pick_image_desc": "Could not load the logo, please try again later."
+    },
+    "scarf": {"title": "Design Studio"},
+    "cap": {"title": "Cap Design"}
   }
 }

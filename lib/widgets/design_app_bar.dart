@@ -6,7 +6,7 @@ class DesignAppBar extends StatelessWidget {
   final String title;
   final VoidCallback onBack;
 
-  const DesignAppBar({required this.title, required this.onBack});
+  const DesignAppBar({super.key, required this.title, required this.onBack});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +51,7 @@ class StepsHeader extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   const StepsHeader({
+    super.key,
     required this.steps,
     required this.current,
     required this.onTap,
@@ -112,7 +113,7 @@ class SummaryRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const SummaryRow({required this.label, required this.value});
+  const SummaryRow({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {

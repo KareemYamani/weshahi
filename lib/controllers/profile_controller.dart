@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../localization/local_manager.dart';
 import '../data/app_data.dart';
 import '../models/user_model.dart';
 import 'user_controller.dart';
@@ -44,8 +45,8 @@ class ProfileController extends GetxController {
     });
 
     Get.snackbar(
-      'تم الحفظ',
-      'تم تحديث بيانات ملفك الشخصي بنجاح',
+      localManager.tr('profile.saved_title'),
+      localManager.tr('profile.saved_message'),
       snackPosition: SnackPosition.BOTTOM,
       margin: const EdgeInsets.all(16),
       backgroundColor: Colors.green.shade50,
