@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../localization/local_manager.dart';
@@ -13,10 +14,10 @@ class LanguageSelectScreen extends StatefulWidget {
 }
 
 class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
-  Future<void> _select(Locale loc) async {
-    // await Prefs.setLocale(loc.languageCode, loc.countryCode);
-    await localManager.setLocale(loc);
-    Get.offAllNamed(Routes.splash);
+  Future<void> _select(BuildContext context, Locale loc) async {
+    // طبّق اللغة المختارة ثم انتقل للـ Onboarding
+    await context.setLocale(loc);
+    Get.offAllNamed(Routes.onboarding);
   }
 
   @override
@@ -49,21 +50,21 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
                   _LangTile(
                     title: localManager.tr('language_select.fusha'),
                     subtitle: localManager.tr('language_select.fusha_desc'),
-                    onTap: () => _select(const Locale('ar')),
+                    onTap: () => _select(context, const Locale('ar')),
                     leading: const Text('ا', style: TextStyle(fontSize: 20)),
                   ),
                   const SizedBox(height: 12),
                   _LangTile(
                     title: localManager.tr('language_select.syrian'),
                     subtitle: localManager.tr('language_select.syrian_desc'),
-                    onTap: () => _select(const Locale('ar', 'SA')),
+                    onTap: () => _select(context, const Locale('ur')),
                     leading: const Text('ش', style: TextStyle(fontSize: 20)),
                   ),
                   const SizedBox(height: 12),
                   _LangTile(
                     title: localManager.tr('lang.english'),
                     subtitle: localManager.tr('language_select.english_desc'),
-                    onTap: () => _select(const Locale('en')),
+                    onTap: () => _select(context, const Locale('en')),
                     leading: const Text('A', style: TextStyle(fontSize: 20)),
                   ),
                 ],

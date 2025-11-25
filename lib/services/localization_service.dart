@@ -15,7 +15,7 @@ class LocalizationService {
   // ar-SA   -> Arabic (Colloquial / Syrian style)
   static const List<Locale> supportedLocales = [
     Locale('ar'),
-    Locale('ar', 'SA'),
+    Locale('ur'),
     Locale('en'),
   ];
 

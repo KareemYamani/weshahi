@@ -21,7 +21,7 @@ Future<void> main() async {
       supportedLocales: LocalizationService.supportedLocales,
       path: 'assets/translations',
       assetLoader: const WeshahiAssetLoader(),
-      startLocale: const Locale('ar', 'SA'),
+      startLocale: const Locale('ur'),
       useOnlyLangCode: false,
       fallbackLocale: LocalizationService.fallbackLocale,
       saveLocale: true,
@@ -40,7 +40,8 @@ class WeshahiApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       initialBinding: AppBinding(),
-      initialRoute: Routes.language,
+      // ابدأ بالـ Splash أولاً
+      initialRoute: Routes.splash,
       getPages: AppPages.pages,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

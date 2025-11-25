@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../localization/local_manager.dart';
 import '../../theme/app_theme.dart';
 import '../../controllers/profile_controller.dart';
+import '../../widgets/language_switcher.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({super.key});
@@ -87,7 +88,7 @@ class _ProfileAppBar extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          const SizedBox(width: 40),
+          const LanguageSwitcher(),
         ],
       ),
     );

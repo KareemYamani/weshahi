@@ -24,7 +24,8 @@ class SplashController extends GetxController
     logoController.forward();
 
     Timer(const Duration(milliseconds: 2300), () {
-      Get.offAllNamed(Routes.onboarding);
+      // بعد شاشة البداية، انتقل لاختيار اللغة أولاً
+      Get.offAllNamed(Routes.language);
     });
   }
 

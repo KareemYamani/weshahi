@@ -39,7 +39,7 @@ class LanguageSelectPage extends StatelessWidget {
               title: localManager.tr('language_select.syrian'),
               subtitle: localManager.tr('language_select.syrian_desc'),
               emoji: '😄',
-              onTap: () => _select(context, const Locale('ar', 'SA')),
+              onTap: () => _select(context, const Locale('ur')),
             ),
           ],
         ),
