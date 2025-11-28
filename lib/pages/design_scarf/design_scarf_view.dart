@@ -11,6 +11,8 @@ import '../../routes/app_routes.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/design_app_bar.dart';
 import '../../widgets/primary_button.dart';
+import '../../widgets/fingerprint_capture_modal.dart';
+import '../../widgets/fingerprint_embroidery_draggable.dart';
 
 class ScarfDesignScreen extends StatefulWidget {
   const ScarfDesignScreen({super.key});
@@ -38,6 +40,11 @@ class _ScarfDesignScreenState extends State<ScarfDesignScreen> {
   final GlobalKey<_ScarfSideState> _rightScarfKey =
       GlobalKey<_ScarfSideState>();
   final GlobalKey<_ScarfSideState> _leftScarfKey = GlobalKey<_ScarfSideState>();
+
+  bool _showFingerprintRight = false;
+  int? _fingerprintSeedRight;
+  bool _showFingerprintLeft = false;
+  int? _fingerprintSeedLeft;
 
   @override
   void initState() {
@@ -88,6 +95,34 @@ class _ScarfDesignScreenState extends State<ScarfDesignScreen> {
         margin: const EdgeInsets.all(16),
       );
     }
+  }
+
+  void _openFingerprintCapture({required bool addToRight}) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => FingerprintCaptureModal(
+        onCaptured: () {
+          Navigator.of(context).pop();
+          setState(() {
+            if (addToRight) {
+              _showFingerprintRight = true;
+              _fingerprintSeedRight = DateTime.now().microsecondsSinceEpoch;
+            } else {
+              _showFingerprintLeft = true;
+              _fingerprintSeedLeft = DateTime.now().microsecondsSinceEpoch;
+            }
+          });
+          Get.snackbar(
+            localManager.tr('design.fingerprint.action'),
+            localManager.tr('design.fingerprint.added'),
+            snackPosition: SnackPosition.BOTTOM,
+            margin: const EdgeInsets.all(16),
+          );
+        },
+      ),
+    );
   }
 
   ScarfColor get activeColor => scarfColors.firstWhere(
@@ -158,6 +193,22 @@ class _ScarfDesignScreenState extends State<ScarfDesignScreen> {
                     leftLogoBytes: _leftLogoBytes,
                     rightKey: _rightScarfKey,
                     leftKey: _leftScarfKey,
+                    showFingerprintRight: _showFingerprintRight,
+                    fingerprintSeedRight: _fingerprintSeedRight,
+                    onRemoveFingerprintRight: () {
+                      setState(() {
+                        _showFingerprintRight = false;
+                        _fingerprintSeedRight = null;
+                      });
+                    },
+                    showFingerprintLeft: _showFingerprintLeft,
+                    fingerprintSeedLeft: _fingerprintSeedLeft,
+                    onRemoveFingerprintLeft: () {
+                      setState(() {
+                        _showFingerprintLeft = false;
+                        _fingerprintSeedLeft = null;
+                      });
+                    },
                   ),
                   Expanded(
                     child: Container(
@@ -481,6 +532,28 @@ class _ScarfDesignScreenState extends State<ScarfDesignScreen> {
                     });
                   },
           ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _FingerprintTile(
+                  title: localManager.tr('design.fingerprint.action'),
+                  subtitle:
+                      localManager.tr('design.fingerprint.hold_to_capture'),
+                  onTap: () => _openFingerprintCapture(addToRight: true),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _FingerprintTile(
+                  title: localManager.tr('design.fingerprint.action'),
+                  subtitle:
+                      localManager.tr('design.fingerprint.hold_to_capture'),
+                  onTap: () => _openFingerprintCapture(addToRight: false),
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 16),
           _LogoControlsRow(
             title: 'تحكم شعار الطرف الأيمن',
@@ -584,6 +657,12 @@ class _ScarfPreview extends StatelessWidget {
   final Uint8List? leftLogoBytes;
   final GlobalKey<_ScarfSideState>? rightKey;
   final GlobalKey<_ScarfSideState>? leftKey;
+  final bool showFingerprintRight;
+  final int? fingerprintSeedRight;
+  final VoidCallback? onRemoveFingerprintRight;
+  final bool showFingerprintLeft;
+  final int? fingerprintSeedLeft;
+  final VoidCallback? onRemoveFingerprintLeft;
 
   const _ScarfPreview({
     required this.color,
@@ -597,6 +676,12 @@ class _ScarfPreview extends StatelessWidget {
     this.leftLogoBytes,
     this.rightKey,
     this.leftKey,
+    this.showFingerprintRight = false,
+    this.fingerprintSeedRight,
+    this.onRemoveFingerprintRight,
+    this.showFingerprintLeft = false,
+    this.fingerprintSeedLeft,
+    this.onRemoveFingerprintLeft,
   });
 
   bool get isSatin => fabricId == 'satin';
@@ -620,6 +705,9 @@ class _ScarfPreview extends StatelessWidget {
               fontSize: fontSizeRight,
               rotateRight: true,
               logoBytes: rightLogoBytes,
+              showFingerprint: showFingerprintRight,
+              fingerprintSeed: fingerprintSeedRight,
+              onRemoveFingerprint: onRemoveFingerprintRight,
             ),
             const SizedBox(width: 14),
             _ScarfSide(
@@ -631,6 +719,9 @@ class _ScarfPreview extends StatelessWidget {
               fontSize: fontSizeLeft,
               rotateRight: false,
               logoBytes: leftLogoBytes,
+              showFingerprint: showFingerprintLeft,
+              fingerprintSeed: fingerprintSeedLeft,
+              onRemoveFingerprint: onRemoveFingerprintLeft,
             ),
           ],
         ),
@@ -647,6 +738,9 @@ class _ScarfSide extends StatefulWidget {
   final double fontSize;
   final bool rotateRight;
   final Uint8List? logoBytes;
+  final bool showFingerprint;
+  final int? fingerprintSeed;
+  final VoidCallback? onRemoveFingerprint;
 
   const _ScarfSide({
     super.key,
@@ -657,6 +751,9 @@ class _ScarfSide extends StatefulWidget {
     required this.fontSize,
     required this.rotateRight,
     this.logoBytes,
+    this.showFingerprint = false,
+    this.fingerprintSeed,
+    this.onRemoveFingerprint,
   });
 
   @override
@@ -812,6 +909,15 @@ class _ScarfSideState extends State<_ScarfSide> {
                   ),
                 ),
               ),
+            ),
+          if (widget.showFingerprint)
+            FingerprintEmbroideryDraggable(
+              boundsSize: const Size(70, 210),
+              initialOffset: const Offset(18, 90),
+              diameter: 30,
+              color: widget.fontColor,
+              seed: widget.fingerprintSeed,
+              onDelete: widget.onRemoveFingerprint,
             ),
           Positioned(
             bottom: 6,
@@ -1025,6 +1131,78 @@ class _LogoControlsRow extends StatelessWidget {
           ),
         ),
         child: Icon(icon, size: 18, color: color),
+      ),
+    );
+  }
+}
+
+class _FingerprintTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _FingerprintTile({
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFFBEB),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFFFDE68A)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: const Color(0xFFFDE68A),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.favorite_rounded,
+                color: Color(0xFFDC2626),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.right,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.textMain,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    textAlign: TextAlign.right,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppColors.textSec,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Icon(Icons.chevron_left_rounded, color: AppColors.textSec),
+          ],
+        ),
       ),
     );
   }

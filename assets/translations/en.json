@@ -86,6 +86,12 @@
       "pick_image_desc": "Could not load the logo, please try again later."
     },
     "scarf": {"title": "Design Studio"},
-    "cap": {"title": "Cap Design"}
+    "cap": {"title": "Cap Design"},
+    "fingerprint": {
+      "action": "Bio-Thread Fingerprint",
+      "hold_to_capture": "Hold to capture your fingerprint",
+      "scanning": "Capturing your print...",
+      "added": "Fingerprint embroidery added"
+    }
   }
 }
